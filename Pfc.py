@@ -35,7 +35,7 @@
             #alors resultat ="egalité"
     
     #retourner resultat
-       
+    
 #tant que resultatJoueur et resultatOrdinateur sont inferieur a 3
     #Initialiser choixOrdinateur puis assigner le valeur retourner de random(0,2)
     #Initialiser choixJoueur puis assigner le valeur input( la valeur doit etre, 0,1 ou 2)
@@ -73,3 +73,4 @@
     #sinon si resultatOrdinateur egal a 3
         #alors afficher "...,bravo"
     
+#FIN
