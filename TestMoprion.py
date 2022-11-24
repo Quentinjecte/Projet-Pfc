@@ -10,17 +10,21 @@ visual.append([" ", " ", " "])
 visual.append([" ", " ", " "])
 visual.append([" ", " ", " "])
 
+winplayer1 = False
+winplayer2 = False
+
+
 def case(choix):
     if choix =='1':
-        x = 0
+        x = 2
         y = 0
         return x,y
     elif choix =='2':
-        x = 0
+        x = 2
         y = 1
         return x,y
     elif choix =='3':
-        x = 0
+        x = 2
         y = 2
         return x,y
     elif choix =='4':
@@ -36,17 +40,130 @@ def case(choix):
         y = 2
         return x,y
     elif choix =='7':
-        x = 2
+        x = 0
         y = 0
         return x,y
     elif choix =='8':
-        x = 2
+        x = 0
         y = 1
         return x,y
     elif choix =='9':
-        x = 2
+        x = 0
         y = 2
         return x,y
+
+def winCondition(visual, xChoix, yChoix):
+    #test en ligne
+    if yChoix == 0:
+        if (visual[xChoix][yChoix + 1] == visual[xChoix][yChoix])and (visual[xChoix][yChoix + 2] == visual[xChoix][yChoix]) :
+            return visual[xChoix][yChoix]
+    elif yChoix == 1:
+        if (visual[xChoix][yChoix - 1] == visual[xChoix][yChoix])and (visual[xChoix][yChoix + 1] == visual[xChoix][yChoix]) :
+            return visual[xChoix][yChoix]
+    elif yChoix == 2:
+        if (visual[xChoix][yChoix - 2] == visual[xChoix][yChoix])and (visual[xChoix][yChoix - 1] == visual[xChoix][yChoix]) :
+            return visual[xChoix][yChoix]
+    #test en colonne 
+    if xChoix == 0:
+        if (visual[xChoix + 1][yChoix] == visual[xChoix][yChoix])and (visual[xChoix + 2][yChoix] == visual[xChoix][yChoix]) :
+            return visual[xChoix][yChoix]
+    elif xChoix == 1:
+        if (visual[xChoix - 1][yChoix ] == visual[xChoix][yChoix])and (visual[xChoix  + 1][yChoix] == visual[xChoix][yChoix]) :
+            return visual[xChoix][yChoix]
+    elif xChoix == 2:
+        if (visual[xChoix - 2][yChoix] == visual[xChoix][yChoix])and (visual[xChoix - 1][yChoix] == visual[xChoix][yChoix]) :
+            return visual[xChoix][yChoix]
+    #test en diagonale
+    if xChoix == 1 and yChoix == 1:
+        return None
+    elif (visual[0][2] == visual[xChoix][yChoix] and visual[2][0] == visual[xChoix][yChoix] and visual[1][1] == visual[xChoix][yChoix]):
+        return visual[xChoix][yChoix]
+    elif (visual[0][0] == visual[xChoix][yChoix] and visual[2][2] == visual[xChoix][yChoix] and visual[1][1] == visual[xChoix][yChoix]):
+            return visual[xChoix][yChoix]
+
+
+
+def cpuBlock(visual):
+    if (visual[1][1]=='X' and visual[2][2]=='X' or visual[1][0]=='X' and visual[2][0]=='X' or visual[0][1]=='X' and visual[0][2]=='X') and visual[0][0]== " ":
+
+      return '7'
+
+    elif (visual[0][0]=='X' and visual[0][2]=='X' or visual[1][1]=='X' and visual[2][1]=='X') and visual[0][1]== " ":
+
+      return '8'
+
+    elif (visual[0][0]=='X' and visual[0][1]=='X' or visual[1][1]=='X' and visual[2][0]=='X' or visual[1][2]=='X' and visual[2][2]=='X') and visual[0][2]== " ":
+
+      return '9'
+
+    elif (visual[0][0]=='X' and visual[2][0]=='X' or visual[1][1]=='X' and visual[1][2]=='X') and visual[1][0]== " ":
+
+      return '4'
+
+    elif (visual[0][0]=='X' and visual[2][2]=='X' or visual[1][0]=='X' and visual[1][2]=='X' or visual[0][1]=='X' and visual[2][1]=='X' or visual[2][0]=='X' and visual[0][2]=='X') and visual[1][1]== " ":
+
+      return '5'
+
+    elif (visual[1][0]=='X' and visual[1][2]=='X' or visual[0][2]=='X' and visual[2][2]=='X') and visual[1][2]== " ":
+
+      return '6'
+
+    elif (visual[0][0]=='X' and visual[1][0]=='X' or visual[1][1]=='X' and visual[0][2]=='X' or visual[2][1]=='X' and visual[2][2]=='X') and visual[2][0]== " ":
+
+      return '1'
+
+    elif (visual[2][1]=='X' and visual[2][2]=='X' or visual[1][1]=='X' and visual[0][1]=='X') and visual[2][1]== " ":
+
+      return '2'
+
+    elif (visual[0][0]=='X' and visual[1][1]=='X' or visual[2][0]=='X' and visual[2][1]=='X' or visual[0][2]=='X' and visual[1][2]=='X') and visual[2][2]== " ":
+
+      return '3'
+
+    else:
+        return "NO"
+
+def cpuWin(visual):
+    if (visual[1][1]=='O' and visual[2][2]=='O' or visual[1][0]=='O' and visual[2][0]=='O' or visual[0][1]=='O' and visual[0][2]=='O') and visual[0][0]== " ":
+
+      return '7'
+
+    elif (visual[0][0]=='O' and visual[0][2]=='O' or visual[1][1]=='O' and visual[2][1]=='O') and visual[0][1]== " ":
+
+      return '8'
+
+    elif (visual[0][0]=='O' and visual[0][1]=='O' or visual[1][1]=='O' and visual[2][0]=='O' or visual[1][2]=='O' and visual[2][2]=='O') and visual[0][2]== " ":
+
+      return '9'
+
+    elif (visual[0][0]=='O' and visual[2][0]=='O' or visual[1][1]=='O' and visual[1][2]=='O') and visual[1][0]== " ":
+
+      return '4'
+
+    elif (visual[0][0]=='O' and visual[2][2]=='O' or visual[1][0]=='O' and visual[1][2]=='O' or visual[0][1]=='O' and visual[2][1]=='O' or visual[2][0]=='O' and visual[0][2]=='O') and visual[1][1]== " ":
+
+      return '5'
+
+    elif (visual[1][0]=='O' and visual[1][2]=='O' or visual[0][2]=='O' and visual[2][2]=='O') and visual[1][2]== " ":
+
+      return '6'
+
+    elif (visual[0][0]=='O' and visual[1][0]=='O' or visual[1][1]=='O' and visual[0][2]=='O' or visual[2][1]=='O' and visual[2][2]=='O') and visual[2][0]== " ":
+ 
+      return '1'
+
+    elif (visual[2][1]=='O' and visual[2][2]=='O' or visual[1][1]=='O' and visual[0][1]=='O') and visual[2][1]== " ":
+
+      return '2'
+
+    elif (visual[0][0]=='O' and visual[1][1]=='O' or visual[2][0]=='O' and visual[2][1]=='O' or visual[0][2]=='O' and visual[1][2]=='O') and visual[2][2]== " ":
+
+      return '3'
+
+    else:
+        return "NO"
+
+
 
 def affichergrille():
 
@@ -59,15 +176,6 @@ def affichervisual():
     for i in range(0, len(visual)):
         print(" | ".join(str(e) for e in visual[i]))
 
-
-# def caseSymbol(grille, symbol):
-#     visual[grille] == symbol
-#     listCaseEmpty.remove((grille))
-
-# def ifCaseEmpty(grille):
-#     if(visual[grille])==" ":
-#         return True
-#     return False
 
 def breaker():
     print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
@@ -82,18 +190,19 @@ print("Bienvenue dans le jeu du morpion !\n"
       "  - Sur une même ligne\n"
       "  - Sur une même colonne\n"
       "  - Sur une même diagonale\n\n"
-      "  - Voici la reference du tableau")
+      "  - Voici la reference du visualleau")
 affichergrille()
 breaker()
 
-
-replay = 'O'
+restart = 'O'
 player1 = {"prenom" : "", "symbole" : "X"}
 player2 = {"prenom" : "", "symbole" : "O"}
 
-while replay == 'O':
+while winplayer1 ==False and winplayer2 == False and (restart == 'O'or'o'):
     player1['prenom'] = input("Entrez le prénom du joueur 1 : ")
     player2['prenom'] = input("Entrez le prénom du joueur 2 : ")
+
+    count = 0
 
     breaker()
 
@@ -104,72 +213,113 @@ while replay == 'O':
 
     breaker()
 
-    while True:
-        print("Reference du tableau\n")
+    while winplayer1 ==False and winplayer2 == False:
+        print("Reference du visualleau\n")
         affichergrille()
         breakertwo()
-        print(turnPlayer["prenom"]," à ton tour !")
+        print(turnPlayer['prenom']," à ton tour !")
         breakertwo()
         affichervisual()
+
         while True :
-            while True :
-                line = int(input("Quelle case souhaites-tu jouer ? "))
+            
+            if turnPlayer == player1:
+                choix = str(input("\nQuelle case souhaites-tu jouer ? "))
+                x,y=case(choix)
+
+                while visual[x][y]!=" ":
+                    print("\nCette case est deja prise")
+                    choix = str(input("\nQuelle case souhaites-tu jouer ? "))
+                    x,y=case(choix)
+                visual[x][y]='X'
+                count +=1
+                breakertwo()
+                affichergrille()
+                breakertwo()
+                affichervisual()
+
+                if winCondition(visual, x ,y) == 'X':
+                    print("Bravo! " +turnPlayer["prenom"]+ " Tu as gagné !")
+                    winplayer1 = True
+                    break
+                if count == 9:
+                    print("égaliter")
+                    winplayer1 = True
+                    break
+
+            else:
+              if cpuWin !="NO":
+                choixCpu=cpuWin(visual)
+                x,y=case(choixCpu)
+                visual[x][y]='O'
+                
+
+              elif cpuBlock !="NO":
+                choixCpu=cpuBlock(visual)
+                x,y=case(choixCpu)
+                visual[x][y]='O'
+          
+
+              if count == 0:
+                choixCpu=str(random.randint(5))
+                x,y=case(choixCpu)
+                visual[x][y]='O'
+                count +=1
+       
+                
+              elif count == 1 and visual[1][1] =="X":
+                choixCpu=str(random.randint(1,3,7,9))
+                x,y=case(choixCpu)
+                visual[x][y]='O'
+                count +=1
+
+              # elif :
+              #   choixCpu=str(random.randint(5))
+              #   x,y=case(choixCpu)
+              #   visual[x][y]='O'
+
+
+              while visual[x][y]!=" ":
+                  print("\nCette case est deja prise")
+                  choixCpu = str(random.randint(1,9))
+                  x,y=case(choixCpu)   
+              visual[x][y]='O'
+              breakertwo()
+              affichergrille()
+              breakertwo()
+              affichervisual()  
+
+              if winCondition(visual, x ,y) == 'O':
+                    print("Bravo ! " +turnPlayer["prenom"]+ " Tu as gagné !")
+                    winplayer2 = True
+                    break
+              if count == 9:
+                    print("égaliter")
+                    winplayer2 = True
+                    break
 
 
 
+            if turnPlayer == player1:
+                turnPlayer = player2
+            else:
+                turnPlayer = player1
 
+    restart = " "
+    while restart not in ["O" or "o", "N" or "n"]:
+        breaker()
+        restart = input("Souhaitez-vous restart ? [O/N] ")
+        winplayer2 = False
+        winplayer1 = False
+        player1 = {"prenom" : "", "symbole" : "X"}
+        player2 = {"prenom" : "", "symbole" : "O"}
+        visual = []
+        visual.append([" ", " ", " "])
+        visual.append([" ", " ", " "])
+        visual.append([" ", " ", " "])
 
+    if restart == ("N"or"n"):
+        break
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def winCondition(symbol):
-#     for i in grille:
-#         if i ==[symbol for _ in range(0, len(visual))]:
-#             return True
-    
-#     for i in range(0, len(visual)):
-#         list = []
-#         for k in grille:
-#              list.append(k[i])
-#         if list == [symbol for _ in range(0, len(visual))]:
-#             return True
-
-#     if visual(grille[1]) == visual(grille[5]) == visual(grille[9]) == symbol\
-#         or visual(grille[3])== visual(grille[5])== visual(grille[7]) == symbol:
-#         return True
-#     return False
-
-
-
-# breaker()
+breaker()
+print("Merci d'avoir joué !")
