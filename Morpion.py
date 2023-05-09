@@ -6,7 +6,7 @@ grille.append([4,5,6])
 grille.append([7,8,9])
 
 visual=[]
-visual.append([" "," "," "])
+visual.append([" "," "," "])gfgfgfgfgfgf
 visual.append([" "," "," "])
 visual.append([" "," "," "])
 
